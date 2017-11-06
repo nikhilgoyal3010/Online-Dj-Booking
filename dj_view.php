@@ -1,6 +1,6 @@
 <?php
     include("checkLogin.php");
-    include 'connect.php';
+   include 'connect.php';
 ?>
 
 
@@ -45,8 +45,8 @@
                 {
                 
 
-                $id_dj=$row['d_id'];
-                $name_dj=$row['d_name'];
+                $_SESSION['id_dj']=$row['d_id'];
+                $_SESSION['name_dj']=$row['d_name'];
 
 
                 echo'    <h5 class="text-center panel-title"><strong>'.$row['d_name'].'</strong></h5></div>
@@ -78,7 +78,7 @@
                 playlist unless otherwise directed by you, All of the above and more at a VERY affordable rate. </p>
             <h2 class="text-center" id="c">Available Dates</h2>
     
-    <form class="form-signin" method="post">
+    <form class="form-signin" method="post" action="final_page.php"> 
             
 
             <div id="radio">
@@ -102,7 +102,7 @@
             </div>
         </div>
     </div>
-    <div class="container cst" id="abc">
+    <div class="container cst" id="abc" >
         
 
         
@@ -115,57 +115,12 @@
                 </optgroup>
             </select>
             <input class="btn btn-primary btn-block btn-lg cst" type="submit" name="xxx" value="Confirm Booking" style="margin-top:10px">
-        
+            
 
         </form>
 
 
-
-
-                                    <?php
-                                    if(isset($_POST['xxx']))
-                                    {
-                                        $d=$_POST['radio_dates'];
-                                        $a=$_POST['amt'];
-                                        $m=$_POST['mode'];
-                                        $u_contact=$_SESSION['user_phone'];
-
-                                            $query="select * from user where u_phone_no=$u_contact";
-                                            $select_query=mysqli_query($connection,$query);
-
-                                            while($row=mysqli_fetch_assoc($select_query))
-                                            {
-                                                $u_id=$row['u_id'];
-                                            }
-
-
-
-
-
-                                        // echo "$d";
-                                        // echo "$a";
-                                        // echo "$m";
-                                        // echo "$id_dj";
-                                        // echo "$name_dj";
-                                        // echo "$u_contact";
-                                        // echo "$u_id";
-
-                                     $query1="insert into booking_details(u_id,d_id,u_phone_no,d_name,b_date,b_payment_mode,b_payment_amt)";
-                                     $query1.=" values('{$u_id}','{$id_dj}','{$u_contact}','{$name_dj}','{$d}','{$m}','{$a}')";
-                                     $select_query1=mysqli_query($connection,$query1);
                                     
-                                    
-
-                                    $query2="delete from booking_dates_status where b_avail_date='$d' AND d_id=$id_dj";
-                                    $select_query2=mysqli_query($connection,$query2);
-
-                                   header("Refresh:0");
-
-                                    }
-                                        
-                                    ?>
-
-
 
 
     </div>
